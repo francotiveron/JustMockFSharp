@@ -5,6 +5,8 @@ VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "JustMockFSharp", "JustMockFSharp.fsproj", "{7AD101A7-D7E5-48BD-AECF-666F4AC2E61B}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "JustMockFSharpTests", "..\JustMockFSharpTests\JustMockFSharpTests.fsproj", "{56AADEC3-B506-464A-A0F9-5A96324E33AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{7AD101A7-D7E5-48BD-AECF-666F4AC2E61B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AD101A7-D7E5-48BD-AECF-666F4AC2E61B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7AD101A7-D7E5-48BD-AECF-666F4AC2E61B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56AADEC3-B506-464A-A0F9-5A96324E33AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56AADEC3-B506-464A-A0F9-5A96324E33AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56AADEC3-B506-464A-A0F9-5A96324E33AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56AADEC3-B506-464A-A0F9-5A96324E33AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,6 +2,7 @@ module Tests
 
 open System
 open Xunit
+open Telerik.JustMock
 
 [<Fact>]
 let ``My test`` () =
