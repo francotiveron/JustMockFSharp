@@ -10,3 +10,11 @@ type C1() =
 
     let parameterized (ct: CancellationToken) (callback: Task -> unit) = 
         if ct.IsCancellationRequested then callback Task.CompletedTask
+
+    let parameterized1 (ct: CancellationToken) = ()
+    
+    let parameterized2 (callback: Task -> unit) = ()
+
+    let f1 (callback: Task -> unit) = ()
+    let f2 (callback: Task -> unit) = ()
+
