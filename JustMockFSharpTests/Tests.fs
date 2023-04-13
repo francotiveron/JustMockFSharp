@@ -56,9 +56,9 @@ let ``3 - call parameterized private function in class``() =
     let ca = Mock.Create<C1.C1>()
     let argTypes = [| typeof<CancellationToken>; typeof<FSharpFunc<Task, unit>> |]
     let args = [|box CancellationToken.None; box (fun (_: Task) -> ())|]
-    Mock.NonPublic.Arrange(ca, "f1").CallOriginal() |> ignore
+    Mock.NonPublic.Arrange(ca, "parameterized").CallOriginal() |> ignore
     let inst = new PrivateAccessor(ca)
-    inst.CallMethod("f1", argTypes, args) |> ignore
+    inst.CallMethod("parameterized", argTypes, args) |> ignore
     Assert.True(true)
 
 //The offending argument is the function
