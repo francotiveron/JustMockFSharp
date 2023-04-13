@@ -26,7 +26,7 @@ let ``call parameterless private function in class`` () =
     Assert.Equal(21, field1)
 
 [<Fact>]
-let ``mock parameterized private function in class 1``() =
+let ``call parameterized private function in class 1``() =
     let ca = Mock.Create<C1.C1>()
     let argTypes = [|typeof<CancellationToken>; typeof<Task -> unit>|]
     let args = [|box CancellationToken.None; box (fun _ -> ())|]
@@ -36,7 +36,7 @@ let ``mock parameterized private function in class 1``() =
     Assert.True(true)
 
 [<Fact>]
-let ``mock parameterized private function in class 2``() =
+let ``call parameterized private function in class 2``() =
     let ca = Mock.Create<C1.C1>()
     let argTypes = [| typeof<CancellationToken>; typeof<FSharpFunc<Task, unit>> |]
     let args = [|box CancellationToken.None; box (fun _ -> ())|]
