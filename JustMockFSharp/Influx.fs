@@ -1,5 +1,8 @@
 ﻿namespace Library
 
+open System.Threading
+
+
 module internal Influx =
 
     open InfluxDB.Client
@@ -13,7 +16,7 @@ module internal Influx =
 
     let stream (org:string) onNext onError onComplete (flux:string) = backgroundTask {
         let qApi = client.GetQueryApi()
-        return! qApi.QueryAsync(flux, onNext, onError, onComplete, org) //Mock this
+        return! qApi.QueryAsync(flux, onNext, onError, onComplete, org, CancellationToken.None) //Mock this
     }
 
 open System.Threading.Tasks
@@ -28,4 +31,4 @@ open Library
 type Application() = 
     let series = InfluxSeries()
 
-    member __.Method1() = series.Stream<int>(...)
+    member __.Method1() = series.Stream<int>(null, null, null)
