@@ -6,8 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Influx.fs" />
     <Compile Include="M1.fs" />
     <Compile Include="C1.fs" />
-	  <InternalsVisibleTo Include="JustMockFSharpTests" />
+    <InternalsVisibleTo Include="JustMockFSharpTests" />
+    <PackageReference Include="InfluxDB.Client" Version="4.11.0" />
   </ItemGroup>
 </Project>
