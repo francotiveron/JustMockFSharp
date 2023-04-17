@@ -1,6 +1,7 @@
 module InfluxTests
 
 open Xunit
+open System
 open Telerik.JustMock
 open Telerik.JustMock.Helpers
 open InfluxDB.Client
@@ -18,22 +19,27 @@ let ``mock third party API call deep inside user code``() =
 
 [<Fact>]
 let ``tentative 1``() =
-    //never called
     let queryAsyncMock _ _ _ (onNext: FluxRecord -> unit) _ _ : Task = task {
         let stop = onNext null
         ()
     }
 
-    let queryApiMock = Mock.Create<QueryApi>()
+    let queryApiMock = Mock.Create<QueryApi>(Behavior.Strict)
+
+    //Mock
+    //    //.Arrange<Task>(fun() -> queryApiMock.QueryAsync(Arg.IsAny<string>(), Arg.IsAny<FluxRecord -> unit>(), Arg.IsAny<exn -> unit>(), Arg.IsAny<unit -> unit>(), Arg.IsAny<string>(), Arg.IsAny<CancellationToken>()))
+    //    .Arrange<Task>(fun() -> queryApiMock.QueryAsync(Arg.IsAny<string>(), Arg.IsAny<Action<FluxRecord>>(), Arg.IsAny<Action<exn>>(), Arg.IsAny<Action>(), Arg.IsAny<string>(), Arg.IsAny<CancellationToken>()))
+    //    .Returns(Func<_, _, _, _, _, _, Task>(queryAsyncMock))
+    //    .OnAllThreads() |> ignore
 
     queryApiMock
-        .Arrange(fun mock -> mock.QueryAsync(Arg.IsAny<string>(), Arg.IsAny<FluxRecord -> unit>(), Arg.IsAny<exn -> unit>(), Arg.IsAny<unit -> unit>(), Arg.IsAny<string>(), Arg.IsAny<CancellationToken>()))
+        .Arrange(fun mock -> mock.QueryAsync(Arg.IsAny<string>(), Arg.IsAny<Action<FluxRecord>>(), Arg.IsAny<Action<exn>>(), Arg.IsAny<Action>(), Arg.IsAny<string>(), Arg.IsAny<CancellationToken>()))
         //.IgnoreInstance()
         .Returns(Func<_, _, _, _, _, _, Task>(queryAsyncMock))
         .OnAllThreads()
         |> ignore
 
-    let clientMock = Mock.Create<InfluxDBClient>(Constructor.Mocked)
+    let clientMock = Mock.Create<InfluxDBClient>(Constructor.Mocked, Behavior.Strict)
     clientMock.Arrange(fun mock -> mock.GetQueryApi()).Returns(queryApiMock).OnAllThreads() |> ignore
 
     Mock.Arrange<_>(fun() -> InfluxDBClientOptions.Builder().Build()).DoNothing().OnAllThreads() |> ignore
