@@ -41,6 +41,29 @@ let ``tentative 1``() =
 
     let clientMock = Mock.Create<InfluxDBClient>(Constructor.Mocked, Behavior.Strict)
     clientMock.Arrange(fun mock -> mock.GetQueryApi()).Returns(queryApiMock).OnAllThreads() |> ignore
+    Mock.Arrange<_>(fun() -> InfluxDBClientOptions.Builder().Build()).DoNothing().OnAllThreads() |> ignore
+    Mock.Arrange<_>(fun() -> new InfluxDBClient(Arg.IsAny<InfluxDBClientOptions>())).Returns(clientMock).OnAllThreads() |> ignore
+
+    let app = new Application.Application()
+    app.Method1().Wait()
+
+[<Fact>]
+let ``tentative 2``() =
+
+    let queryAsyncMock : Task =
+        async {
+            do! Async.Sleep(1000)
+            ()
+        } |> Async.StartAsTask :> Task
+
+    let queryApiMock = Mock.Create<QueryApi>(Behavior.Strict)
+
+    queryApiMock.Arrange(fun mock -> mock.QueryAsync(Arg.IsAny<string>(), Arg.IsAny<Action<FluxRecord>>(), Arg.IsAny<Action<exn>>(), Arg.IsAny<Action>(), Arg.IsAny<string>(), Arg.IsAny<CancellationToken>()))
+        .Returns(queryAsyncMock)
+        |> ignore
+
+    let clientMock = Mock.Create<InfluxDBClient>(Constructor.Mocked, Behavior.Strict)
+    clientMock.Arrange(fun mock -> mock.GetQueryApi(Arg.IsAny<IDomainObjectMapper>())).Returns(queryApiMock) |> ignore
 
     Mock.Arrange<_>(fun() -> InfluxDBClientOptions.Builder().Build()).DoNothing().OnAllThreads() |> ignore
     Mock.Arrange<_>(fun() -> new InfluxDBClient(Arg.IsAny<InfluxDBClientOptions>())).Returns(clientMock).OnAllThreads() |> ignore
