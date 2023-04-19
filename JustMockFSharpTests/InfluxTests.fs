@@ -79,7 +79,6 @@ let ``tentative 3``() =
 
     Mock
         .Arrange<Task>(fun() -> queryApiMock.QueryAsync(Arg.IsAny<string>(), Arg.IsAny<Action<FluxRecord>>(), Arg.IsAny<Action<exn>>(), Arg.IsAny<Action>(), Arg.IsAny<string>(), Arg.IsAny<CancellationToken>()))
-        .IgnoreInstance()
         .Returns(Func<_, _, _, _, _, _, Task>(queryAsyncMock))
         .OnAllThreads()
         |> ignore
