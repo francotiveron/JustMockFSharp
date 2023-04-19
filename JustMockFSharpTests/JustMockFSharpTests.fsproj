@@ -4,11 +4,12 @@
     <TargetFramework>net6.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
-    <GenerateProgramFile>false</GenerateProgramFile>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="ExtensionsTests.fs" />
+    <Compile Include="OptionalTests.fs" />
     <Compile Include="Tests1.fs" />
     <Compile Include="Tests.fs" />
     <Compile Include="InfluxTests.fs" />

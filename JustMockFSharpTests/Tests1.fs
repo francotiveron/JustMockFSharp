@@ -1,5 +1,6 @@
 module Tests1
 
+open System
 open System.Reflection
 open Xunit
 open System.Threading.Tasks
@@ -29,3 +30,20 @@ let ``typesTest``() =
     Assert.Equal(f1Type, f3Type.BaseType)
     Assert.Equal(f1Type, f4Type.BaseType)
     Assert.Equal(f1Type, f5Type.BaseType)
+
+[<Fact>]
+let ``typesTest1``() =
+    let f4 = fun (_:Task) -> ()
+    let f5 (_:Task) = ()
+
+
+    let f41 = Convert.ChangeType(f4, f4.GetType())
+    let f42 = Convert.ChangeType(f4, f4.GetType().BaseType)
+    let f43 = Convert.ChangeType(f4, typeof<obj>)
+
+    Assert.NotNull(f41)
+    Assert.NotNull(f42)
+    Assert.NotNull(f43)
+
+
+

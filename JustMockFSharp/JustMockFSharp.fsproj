@@ -5,11 +5,14 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup>
+	<ItemGroup>
+    <Compile Include="Optional.fs" />
+    <Compile Include="Extensions.fs" />
     <Compile Include="Influx.fs" />
     <Compile Include="M1.fs" />
     <Compile Include="C1.fs" />
     <InternalsVisibleTo Include="JustMockFSharpTests" />
     <PackageReference Include="InfluxDB.Client" Version="4.11.0" />
-  </ItemGroup>
+		<PackageReference Include="FSharp.Control.FusionTasks" Version="2.6.0" />
+	</ItemGroup>
 </Project>
