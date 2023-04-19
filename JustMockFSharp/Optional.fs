@@ -8,10 +8,6 @@ type Filter =
 type ISeries = 
     abstract member TryLatest_<'TItem> : selector:string * ?filter:Filter -> Task<'TItem option>
 
-type Opt() = 
-    interface ISeries with
-        member __.TryLatest_(selector: string, ?filter: Filter) = Task.FromResult(None)
-
 type App(series: ISeries) = 
     let agent = MailboxProcessor.Start(fun mbx ->
         let rec loop () = async {

@@ -23,7 +23,7 @@ open System.Threading.Tasks
 
 type InfluxSeries() = 
     member __.Stream<'TItem>(onNext, onError, onComplete) = 
-        Influx.stream "" onNext onError onComplete "" :> Task
+        Influx.stream "Telerik" onNext onError onComplete "" :> Task
 
 namespace Application
 open Library
